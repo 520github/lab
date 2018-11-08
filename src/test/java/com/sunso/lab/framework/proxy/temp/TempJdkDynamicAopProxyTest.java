@@ -3,6 +3,10 @@ package com.sunso.lab.framework.proxy.temp;
 import com.sunso.lab.framework.proxy.RoundInterceptor;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
 /**
  * @Title:TempJdkDynamicAopProxyTest
  * @Copyright: Copyright (c) 2018
@@ -21,4 +25,20 @@ public class TempJdkDynamicAopProxyTest {
         proxyObj.helloProxy();
         proxyObj.helloEntity();
     }
+
+    @Test
+    public void sourceTest() {
+        Entity entity = create(Entity.class);
+        entity.helloEntity();
+    }
+
+    private <T> T create(Class<?> interfaceClass) {
+       return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(), new Class<?>[]{interfaceClass}, new InvocationHandler() {
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                System.out.println("invoke call....");
+                return null;
+            }
+        });
+    }
+
 }
