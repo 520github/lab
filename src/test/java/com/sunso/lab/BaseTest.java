@@ -9,4 +9,8 @@ package com.sunso.lab;
  * @miaoxuehui@panda-fintech.com
  */
 public class BaseTest {
+
+    protected void print(String msg, Object... parameter) {
+        System.out.println(msg);
+    }
 }
